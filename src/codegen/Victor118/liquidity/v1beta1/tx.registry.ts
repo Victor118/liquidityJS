@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { GeneratedType, Registry } from "@cosmjs/proto-signing";
 import { MsgCreatePool, MsgDepositWithinBatch, MsgWithdrawWithinBatch, MsgSwapWithinBatch } from "./tx";
 export const registry: ReadonlyArray<[string, GeneratedType]> = [["/Victor118.liquidity.v1beta1.MsgCreatePool", MsgCreatePool], ["/Victor118.liquidity.v1beta1.MsgDepositWithinBatch", MsgDepositWithinBatch], ["/Victor118.liquidity.v1beta1.MsgWithdrawWithinBatch", MsgWithdrawWithinBatch], ["/Victor118.liquidity.v1beta1.MsgSwapWithinBatch", MsgSwapWithinBatch]];

@@ -1,5 +1,6 @@
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { GlobalDecoderRegistry } from "../../../registry";
 import { Decimal } from "@cosmjs/math";
 /**
  * MsgCreatePool defines an sdk.Msg type that supports submitting a create
@@ -382,6 +383,15 @@ function createBaseMsgCreatePool(): MsgCreatePool {
 }
 export const MsgCreatePool = {
   typeUrl: "/Victor118.liquidity.v1beta1.MsgCreatePool",
+  is(o: any): o is MsgCreatePool {
+    return o && (o.$typeUrl === MsgCreatePool.typeUrl || typeof o.poolCreatorAddress === "string" && typeof o.poolTypeId === "number" && Array.isArray(o.depositCoins) && (!o.depositCoins.length || Coin.is(o.depositCoins[0])));
+  },
+  isSDK(o: any): o is MsgCreatePoolSDKType {
+    return o && (o.$typeUrl === MsgCreatePool.typeUrl || typeof o.pool_creator_address === "string" && typeof o.pool_type_id === "number" && Array.isArray(o.deposit_coins) && (!o.deposit_coins.length || Coin.isSDK(o.deposit_coins[0])));
+  },
+  isAmino(o: any): o is MsgCreatePoolAmino {
+    return o && (o.$typeUrl === MsgCreatePool.typeUrl || typeof o.pool_creator_address === "string" && typeof o.pool_type_id === "number" && Array.isArray(o.deposit_coins) && (!o.deposit_coins.length || Coin.isAmino(o.deposit_coins[0])));
+  },
   encode(message: MsgCreatePool, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.poolCreatorAddress !== "") {
       writer.uint32(10).string(message.poolCreatorAddress);
@@ -462,11 +472,21 @@ export const MsgCreatePool = {
     };
   }
 };
+GlobalDecoderRegistry.register(MsgCreatePool.typeUrl, MsgCreatePool);
 function createBaseMsgCreatePoolResponse(): MsgCreatePoolResponse {
   return {};
 }
 export const MsgCreatePoolResponse = {
   typeUrl: "/Victor118.liquidity.v1beta1.MsgCreatePoolResponse",
+  is(o: any): o is MsgCreatePoolResponse {
+    return o && o.$typeUrl === MsgCreatePoolResponse.typeUrl;
+  },
+  isSDK(o: any): o is MsgCreatePoolResponseSDKType {
+    return o && o.$typeUrl === MsgCreatePoolResponse.typeUrl;
+  },
+  isAmino(o: any): o is MsgCreatePoolResponseAmino {
+    return o && o.$typeUrl === MsgCreatePoolResponse.typeUrl;
+  },
   encode(_: MsgCreatePoolResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
@@ -512,6 +532,7 @@ export const MsgCreatePoolResponse = {
     };
   }
 };
+GlobalDecoderRegistry.register(MsgCreatePoolResponse.typeUrl, MsgCreatePoolResponse);
 function createBaseMsgDepositWithinBatch(): MsgDepositWithinBatch {
   return {
     depositorAddress: "",
@@ -521,6 +542,15 @@ function createBaseMsgDepositWithinBatch(): MsgDepositWithinBatch {
 }
 export const MsgDepositWithinBatch = {
   typeUrl: "/Victor118.liquidity.v1beta1.MsgDepositWithinBatch",
+  is(o: any): o is MsgDepositWithinBatch {
+    return o && (o.$typeUrl === MsgDepositWithinBatch.typeUrl || typeof o.depositorAddress === "string" && typeof o.poolId === "bigint" && Array.isArray(o.depositCoins) && (!o.depositCoins.length || Coin.is(o.depositCoins[0])));
+  },
+  isSDK(o: any): o is MsgDepositWithinBatchSDKType {
+    return o && (o.$typeUrl === MsgDepositWithinBatch.typeUrl || typeof o.depositor_address === "string" && typeof o.pool_id === "bigint" && Array.isArray(o.deposit_coins) && (!o.deposit_coins.length || Coin.isSDK(o.deposit_coins[0])));
+  },
+  isAmino(o: any): o is MsgDepositWithinBatchAmino {
+    return o && (o.$typeUrl === MsgDepositWithinBatch.typeUrl || typeof o.depositor_address === "string" && typeof o.pool_id === "bigint" && Array.isArray(o.deposit_coins) && (!o.deposit_coins.length || Coin.isAmino(o.deposit_coins[0])));
+  },
   encode(message: MsgDepositWithinBatch, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.depositorAddress !== "") {
       writer.uint32(10).string(message.depositorAddress);
@@ -601,11 +631,21 @@ export const MsgDepositWithinBatch = {
     };
   }
 };
+GlobalDecoderRegistry.register(MsgDepositWithinBatch.typeUrl, MsgDepositWithinBatch);
 function createBaseMsgDepositWithinBatchResponse(): MsgDepositWithinBatchResponse {
   return {};
 }
 export const MsgDepositWithinBatchResponse = {
   typeUrl: "/Victor118.liquidity.v1beta1.MsgDepositWithinBatchResponse",
+  is(o: any): o is MsgDepositWithinBatchResponse {
+    return o && o.$typeUrl === MsgDepositWithinBatchResponse.typeUrl;
+  },
+  isSDK(o: any): o is MsgDepositWithinBatchResponseSDKType {
+    return o && o.$typeUrl === MsgDepositWithinBatchResponse.typeUrl;
+  },
+  isAmino(o: any): o is MsgDepositWithinBatchResponseAmino {
+    return o && o.$typeUrl === MsgDepositWithinBatchResponse.typeUrl;
+  },
   encode(_: MsgDepositWithinBatchResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
@@ -651,6 +691,7 @@ export const MsgDepositWithinBatchResponse = {
     };
   }
 };
+GlobalDecoderRegistry.register(MsgDepositWithinBatchResponse.typeUrl, MsgDepositWithinBatchResponse);
 function createBaseMsgWithdrawWithinBatch(): MsgWithdrawWithinBatch {
   return {
     withdrawerAddress: "",
@@ -660,6 +701,15 @@ function createBaseMsgWithdrawWithinBatch(): MsgWithdrawWithinBatch {
 }
 export const MsgWithdrawWithinBatch = {
   typeUrl: "/Victor118.liquidity.v1beta1.MsgWithdrawWithinBatch",
+  is(o: any): o is MsgWithdrawWithinBatch {
+    return o && (o.$typeUrl === MsgWithdrawWithinBatch.typeUrl || typeof o.withdrawerAddress === "string" && typeof o.poolId === "bigint" && Coin.is(o.poolCoin));
+  },
+  isSDK(o: any): o is MsgWithdrawWithinBatchSDKType {
+    return o && (o.$typeUrl === MsgWithdrawWithinBatch.typeUrl || typeof o.withdrawer_address === "string" && typeof o.pool_id === "bigint" && Coin.isSDK(o.pool_coin));
+  },
+  isAmino(o: any): o is MsgWithdrawWithinBatchAmino {
+    return o && (o.$typeUrl === MsgWithdrawWithinBatch.typeUrl || typeof o.withdrawer_address === "string" && typeof o.pool_id === "bigint" && Coin.isAmino(o.pool_coin));
+  },
   encode(message: MsgWithdrawWithinBatch, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.withdrawerAddress !== "") {
       writer.uint32(10).string(message.withdrawerAddress);
@@ -738,11 +788,21 @@ export const MsgWithdrawWithinBatch = {
     };
   }
 };
+GlobalDecoderRegistry.register(MsgWithdrawWithinBatch.typeUrl, MsgWithdrawWithinBatch);
 function createBaseMsgWithdrawWithinBatchResponse(): MsgWithdrawWithinBatchResponse {
   return {};
 }
 export const MsgWithdrawWithinBatchResponse = {
   typeUrl: "/Victor118.liquidity.v1beta1.MsgWithdrawWithinBatchResponse",
+  is(o: any): o is MsgWithdrawWithinBatchResponse {
+    return o && o.$typeUrl === MsgWithdrawWithinBatchResponse.typeUrl;
+  },
+  isSDK(o: any): o is MsgWithdrawWithinBatchResponseSDKType {
+    return o && o.$typeUrl === MsgWithdrawWithinBatchResponse.typeUrl;
+  },
+  isAmino(o: any): o is MsgWithdrawWithinBatchResponseAmino {
+    return o && o.$typeUrl === MsgWithdrawWithinBatchResponse.typeUrl;
+  },
   encode(_: MsgWithdrawWithinBatchResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
@@ -788,6 +848,7 @@ export const MsgWithdrawWithinBatchResponse = {
     };
   }
 };
+GlobalDecoderRegistry.register(MsgWithdrawWithinBatchResponse.typeUrl, MsgWithdrawWithinBatchResponse);
 function createBaseMsgSwapWithinBatch(): MsgSwapWithinBatch {
   return {
     swapRequesterAddress: "",
@@ -801,6 +862,15 @@ function createBaseMsgSwapWithinBatch(): MsgSwapWithinBatch {
 }
 export const MsgSwapWithinBatch = {
   typeUrl: "/Victor118.liquidity.v1beta1.MsgSwapWithinBatch",
+  is(o: any): o is MsgSwapWithinBatch {
+    return o && (o.$typeUrl === MsgSwapWithinBatch.typeUrl || typeof o.swapRequesterAddress === "string" && typeof o.poolId === "bigint" && typeof o.swapTypeId === "number" && Coin.is(o.offerCoin) && typeof o.demandCoinDenom === "string" && Coin.is(o.offerCoinFee) && typeof o.orderPrice === "string");
+  },
+  isSDK(o: any): o is MsgSwapWithinBatchSDKType {
+    return o && (o.$typeUrl === MsgSwapWithinBatch.typeUrl || typeof o.swap_requester_address === "string" && typeof o.pool_id === "bigint" && typeof o.swap_type_id === "number" && Coin.isSDK(o.offer_coin) && typeof o.demand_coin_denom === "string" && Coin.isSDK(o.offer_coin_fee) && typeof o.order_price === "string");
+  },
+  isAmino(o: any): o is MsgSwapWithinBatchAmino {
+    return o && (o.$typeUrl === MsgSwapWithinBatch.typeUrl || typeof o.swap_requester_address === "string" && typeof o.pool_id === "bigint" && typeof o.swap_type_id === "number" && Coin.isAmino(o.offer_coin) && typeof o.demand_coin_denom === "string" && Coin.isAmino(o.offer_coin_fee) && typeof o.order_price === "string");
+  },
   encode(message: MsgSwapWithinBatch, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.swapRequesterAddress !== "") {
       writer.uint32(10).string(message.swapRequesterAddress);
@@ -923,11 +993,21 @@ export const MsgSwapWithinBatch = {
     };
   }
 };
+GlobalDecoderRegistry.register(MsgSwapWithinBatch.typeUrl, MsgSwapWithinBatch);
 function createBaseMsgSwapWithinBatchResponse(): MsgSwapWithinBatchResponse {
   return {};
 }
 export const MsgSwapWithinBatchResponse = {
   typeUrl: "/Victor118.liquidity.v1beta1.MsgSwapWithinBatchResponse",
+  is(o: any): o is MsgSwapWithinBatchResponse {
+    return o && o.$typeUrl === MsgSwapWithinBatchResponse.typeUrl;
+  },
+  isSDK(o: any): o is MsgSwapWithinBatchResponseSDKType {
+    return o && o.$typeUrl === MsgSwapWithinBatchResponse.typeUrl;
+  },
+  isAmino(o: any): o is MsgSwapWithinBatchResponseAmino {
+    return o && o.$typeUrl === MsgSwapWithinBatchResponse.typeUrl;
+  },
   encode(_: MsgSwapWithinBatchResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
@@ -973,3 +1053,4 @@ export const MsgSwapWithinBatchResponse = {
     };
   }
 };
+GlobalDecoderRegistry.register(MsgSwapWithinBatchResponse.typeUrl, MsgSwapWithinBatchResponse);

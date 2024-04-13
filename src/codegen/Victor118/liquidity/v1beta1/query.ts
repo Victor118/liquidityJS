@@ -1,6 +1,7 @@
 import { PageRequest, PageRequestAmino, PageRequestSDKType, PageResponse, PageResponseAmino, PageResponseSDKType } from "../../../cosmos/base/query/v1beta1/pagination";
 import { Pool, PoolAmino, PoolSDKType, PoolBatch, PoolBatchAmino, PoolBatchSDKType, Params, ParamsAmino, ParamsSDKType, SwapMsgState, SwapMsgStateAmino, SwapMsgStateSDKType, DepositMsgState, DepositMsgStateAmino, DepositMsgStateSDKType, WithdrawMsgState, WithdrawMsgStateAmino, WithdrawMsgStateSDKType } from "./liquidity";
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * the request type for the QueryLiquidityPool RPC method. requestable specified
  * pool_id.
@@ -759,6 +760,15 @@ function createBaseQueryLiquidityPoolRequest(): QueryLiquidityPoolRequest {
 }
 export const QueryLiquidityPoolRequest = {
   typeUrl: "/Victor118.liquidity.v1beta1.QueryLiquidityPoolRequest",
+  is(o: any): o is QueryLiquidityPoolRequest {
+    return o && (o.$typeUrl === QueryLiquidityPoolRequest.typeUrl || typeof o.poolId === "bigint");
+  },
+  isSDK(o: any): o is QueryLiquidityPoolRequestSDKType {
+    return o && (o.$typeUrl === QueryLiquidityPoolRequest.typeUrl || typeof o.pool_id === "bigint");
+  },
+  isAmino(o: any): o is QueryLiquidityPoolRequestAmino {
+    return o && (o.$typeUrl === QueryLiquidityPoolRequest.typeUrl || typeof o.pool_id === "bigint");
+  },
   encode(message: QueryLiquidityPoolRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.poolId !== BigInt(0)) {
       writer.uint32(8).uint64(message.poolId);
@@ -815,6 +825,7 @@ export const QueryLiquidityPoolRequest = {
     };
   }
 };
+GlobalDecoderRegistry.register(QueryLiquidityPoolRequest.typeUrl, QueryLiquidityPoolRequest);
 function createBaseQueryLiquidityPoolResponse(): QueryLiquidityPoolResponse {
   return {
     pool: Pool.fromPartial({})
@@ -822,6 +833,15 @@ function createBaseQueryLiquidityPoolResponse(): QueryLiquidityPoolResponse {
 }
 export const QueryLiquidityPoolResponse = {
   typeUrl: "/Victor118.liquidity.v1beta1.QueryLiquidityPoolResponse",
+  is(o: any): o is QueryLiquidityPoolResponse {
+    return o && (o.$typeUrl === QueryLiquidityPoolResponse.typeUrl || Pool.is(o.pool));
+  },
+  isSDK(o: any): o is QueryLiquidityPoolResponseSDKType {
+    return o && (o.$typeUrl === QueryLiquidityPoolResponse.typeUrl || Pool.isSDK(o.pool));
+  },
+  isAmino(o: any): o is QueryLiquidityPoolResponseAmino {
+    return o && (o.$typeUrl === QueryLiquidityPoolResponse.typeUrl || Pool.isAmino(o.pool));
+  },
   encode(message: QueryLiquidityPoolResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.pool !== undefined) {
       Pool.encode(message.pool, writer.uint32(10).fork()).ldelim();
@@ -878,6 +898,7 @@ export const QueryLiquidityPoolResponse = {
     };
   }
 };
+GlobalDecoderRegistry.register(QueryLiquidityPoolResponse.typeUrl, QueryLiquidityPoolResponse);
 function createBaseQueryLiquidityPoolByPoolCoinDenomRequest(): QueryLiquidityPoolByPoolCoinDenomRequest {
   return {
     poolCoinDenom: ""
@@ -885,6 +906,15 @@ function createBaseQueryLiquidityPoolByPoolCoinDenomRequest(): QueryLiquidityPoo
 }
 export const QueryLiquidityPoolByPoolCoinDenomRequest = {
   typeUrl: "/Victor118.liquidity.v1beta1.QueryLiquidityPoolByPoolCoinDenomRequest",
+  is(o: any): o is QueryLiquidityPoolByPoolCoinDenomRequest {
+    return o && (o.$typeUrl === QueryLiquidityPoolByPoolCoinDenomRequest.typeUrl || typeof o.poolCoinDenom === "string");
+  },
+  isSDK(o: any): o is QueryLiquidityPoolByPoolCoinDenomRequestSDKType {
+    return o && (o.$typeUrl === QueryLiquidityPoolByPoolCoinDenomRequest.typeUrl || typeof o.pool_coin_denom === "string");
+  },
+  isAmino(o: any): o is QueryLiquidityPoolByPoolCoinDenomRequestAmino {
+    return o && (o.$typeUrl === QueryLiquidityPoolByPoolCoinDenomRequest.typeUrl || typeof o.pool_coin_denom === "string");
+  },
   encode(message: QueryLiquidityPoolByPoolCoinDenomRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.poolCoinDenom !== "") {
       writer.uint32(10).string(message.poolCoinDenom);
@@ -941,6 +971,7 @@ export const QueryLiquidityPoolByPoolCoinDenomRequest = {
     };
   }
 };
+GlobalDecoderRegistry.register(QueryLiquidityPoolByPoolCoinDenomRequest.typeUrl, QueryLiquidityPoolByPoolCoinDenomRequest);
 function createBaseQueryLiquidityPoolByReserveAccRequest(): QueryLiquidityPoolByReserveAccRequest {
   return {
     reserveAcc: ""
@@ -948,6 +979,15 @@ function createBaseQueryLiquidityPoolByReserveAccRequest(): QueryLiquidityPoolBy
 }
 export const QueryLiquidityPoolByReserveAccRequest = {
   typeUrl: "/Victor118.liquidity.v1beta1.QueryLiquidityPoolByReserveAccRequest",
+  is(o: any): o is QueryLiquidityPoolByReserveAccRequest {
+    return o && (o.$typeUrl === QueryLiquidityPoolByReserveAccRequest.typeUrl || typeof o.reserveAcc === "string");
+  },
+  isSDK(o: any): o is QueryLiquidityPoolByReserveAccRequestSDKType {
+    return o && (o.$typeUrl === QueryLiquidityPoolByReserveAccRequest.typeUrl || typeof o.reserve_acc === "string");
+  },
+  isAmino(o: any): o is QueryLiquidityPoolByReserveAccRequestAmino {
+    return o && (o.$typeUrl === QueryLiquidityPoolByReserveAccRequest.typeUrl || typeof o.reserve_acc === "string");
+  },
   encode(message: QueryLiquidityPoolByReserveAccRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.reserveAcc !== "") {
       writer.uint32(10).string(message.reserveAcc);
@@ -1004,6 +1044,7 @@ export const QueryLiquidityPoolByReserveAccRequest = {
     };
   }
 };
+GlobalDecoderRegistry.register(QueryLiquidityPoolByReserveAccRequest.typeUrl, QueryLiquidityPoolByReserveAccRequest);
 function createBaseQueryLiquidityPoolBatchRequest(): QueryLiquidityPoolBatchRequest {
   return {
     poolId: BigInt(0)
@@ -1011,6 +1052,15 @@ function createBaseQueryLiquidityPoolBatchRequest(): QueryLiquidityPoolBatchRequ
 }
 export const QueryLiquidityPoolBatchRequest = {
   typeUrl: "/Victor118.liquidity.v1beta1.QueryLiquidityPoolBatchRequest",
+  is(o: any): o is QueryLiquidityPoolBatchRequest {
+    return o && (o.$typeUrl === QueryLiquidityPoolBatchRequest.typeUrl || typeof o.poolId === "bigint");
+  },
+  isSDK(o: any): o is QueryLiquidityPoolBatchRequestSDKType {
+    return o && (o.$typeUrl === QueryLiquidityPoolBatchRequest.typeUrl || typeof o.pool_id === "bigint");
+  },
+  isAmino(o: any): o is QueryLiquidityPoolBatchRequestAmino {
+    return o && (o.$typeUrl === QueryLiquidityPoolBatchRequest.typeUrl || typeof o.pool_id === "bigint");
+  },
   encode(message: QueryLiquidityPoolBatchRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.poolId !== BigInt(0)) {
       writer.uint32(8).uint64(message.poolId);
@@ -1067,6 +1117,7 @@ export const QueryLiquidityPoolBatchRequest = {
     };
   }
 };
+GlobalDecoderRegistry.register(QueryLiquidityPoolBatchRequest.typeUrl, QueryLiquidityPoolBatchRequest);
 function createBaseQueryLiquidityPoolBatchResponse(): QueryLiquidityPoolBatchResponse {
   return {
     batch: PoolBatch.fromPartial({})
@@ -1074,6 +1125,15 @@ function createBaseQueryLiquidityPoolBatchResponse(): QueryLiquidityPoolBatchRes
 }
 export const QueryLiquidityPoolBatchResponse = {
   typeUrl: "/Victor118.liquidity.v1beta1.QueryLiquidityPoolBatchResponse",
+  is(o: any): o is QueryLiquidityPoolBatchResponse {
+    return o && (o.$typeUrl === QueryLiquidityPoolBatchResponse.typeUrl || PoolBatch.is(o.batch));
+  },
+  isSDK(o: any): o is QueryLiquidityPoolBatchResponseSDKType {
+    return o && (o.$typeUrl === QueryLiquidityPoolBatchResponse.typeUrl || PoolBatch.isSDK(o.batch));
+  },
+  isAmino(o: any): o is QueryLiquidityPoolBatchResponseAmino {
+    return o && (o.$typeUrl === QueryLiquidityPoolBatchResponse.typeUrl || PoolBatch.isAmino(o.batch));
+  },
   encode(message: QueryLiquidityPoolBatchResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.batch !== undefined) {
       PoolBatch.encode(message.batch, writer.uint32(10).fork()).ldelim();
@@ -1130,6 +1190,7 @@ export const QueryLiquidityPoolBatchResponse = {
     };
   }
 };
+GlobalDecoderRegistry.register(QueryLiquidityPoolBatchResponse.typeUrl, QueryLiquidityPoolBatchResponse);
 function createBaseQueryLiquidityPoolsRequest(): QueryLiquidityPoolsRequest {
   return {
     pagination: undefined
@@ -1137,6 +1198,15 @@ function createBaseQueryLiquidityPoolsRequest(): QueryLiquidityPoolsRequest {
 }
 export const QueryLiquidityPoolsRequest = {
   typeUrl: "/Victor118.liquidity.v1beta1.QueryLiquidityPoolsRequest",
+  is(o: any): o is QueryLiquidityPoolsRequest {
+    return o && o.$typeUrl === QueryLiquidityPoolsRequest.typeUrl;
+  },
+  isSDK(o: any): o is QueryLiquidityPoolsRequestSDKType {
+    return o && o.$typeUrl === QueryLiquidityPoolsRequest.typeUrl;
+  },
+  isAmino(o: any): o is QueryLiquidityPoolsRequestAmino {
+    return o && o.$typeUrl === QueryLiquidityPoolsRequest.typeUrl;
+  },
   encode(message: QueryLiquidityPoolsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.pagination !== undefined) {
       PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
@@ -1193,6 +1263,7 @@ export const QueryLiquidityPoolsRequest = {
     };
   }
 };
+GlobalDecoderRegistry.register(QueryLiquidityPoolsRequest.typeUrl, QueryLiquidityPoolsRequest);
 function createBaseQueryLiquidityPoolsResponse(): QueryLiquidityPoolsResponse {
   return {
     pools: [],
@@ -1201,6 +1272,15 @@ function createBaseQueryLiquidityPoolsResponse(): QueryLiquidityPoolsResponse {
 }
 export const QueryLiquidityPoolsResponse = {
   typeUrl: "/Victor118.liquidity.v1beta1.QueryLiquidityPoolsResponse",
+  is(o: any): o is QueryLiquidityPoolsResponse {
+    return o && (o.$typeUrl === QueryLiquidityPoolsResponse.typeUrl || Array.isArray(o.pools) && (!o.pools.length || Pool.is(o.pools[0])));
+  },
+  isSDK(o: any): o is QueryLiquidityPoolsResponseSDKType {
+    return o && (o.$typeUrl === QueryLiquidityPoolsResponse.typeUrl || Array.isArray(o.pools) && (!o.pools.length || Pool.isSDK(o.pools[0])));
+  },
+  isAmino(o: any): o is QueryLiquidityPoolsResponseAmino {
+    return o && (o.$typeUrl === QueryLiquidityPoolsResponse.typeUrl || Array.isArray(o.pools) && (!o.pools.length || Pool.isAmino(o.pools[0])));
+  },
   encode(message: QueryLiquidityPoolsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.pools) {
       Pool.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -1270,11 +1350,21 @@ export const QueryLiquidityPoolsResponse = {
     };
   }
 };
+GlobalDecoderRegistry.register(QueryLiquidityPoolsResponse.typeUrl, QueryLiquidityPoolsResponse);
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
 export const QueryParamsRequest = {
   typeUrl: "/Victor118.liquidity.v1beta1.QueryParamsRequest",
+  is(o: any): o is QueryParamsRequest {
+    return o && o.$typeUrl === QueryParamsRequest.typeUrl;
+  },
+  isSDK(o: any): o is QueryParamsRequestSDKType {
+    return o && o.$typeUrl === QueryParamsRequest.typeUrl;
+  },
+  isAmino(o: any): o is QueryParamsRequestAmino {
+    return o && o.$typeUrl === QueryParamsRequest.typeUrl;
+  },
   encode(_: QueryParamsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
@@ -1320,6 +1410,7 @@ export const QueryParamsRequest = {
     };
   }
 };
+GlobalDecoderRegistry.register(QueryParamsRequest.typeUrl, QueryParamsRequest);
 function createBaseQueryParamsResponse(): QueryParamsResponse {
   return {
     params: Params.fromPartial({})
@@ -1327,6 +1418,15 @@ function createBaseQueryParamsResponse(): QueryParamsResponse {
 }
 export const QueryParamsResponse = {
   typeUrl: "/Victor118.liquidity.v1beta1.QueryParamsResponse",
+  is(o: any): o is QueryParamsResponse {
+    return o && (o.$typeUrl === QueryParamsResponse.typeUrl || Params.is(o.params));
+  },
+  isSDK(o: any): o is QueryParamsResponseSDKType {
+    return o && (o.$typeUrl === QueryParamsResponse.typeUrl || Params.isSDK(o.params));
+  },
+  isAmino(o: any): o is QueryParamsResponseAmino {
+    return o && (o.$typeUrl === QueryParamsResponse.typeUrl || Params.isAmino(o.params));
+  },
   encode(message: QueryParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
@@ -1383,6 +1483,7 @@ export const QueryParamsResponse = {
     };
   }
 };
+GlobalDecoderRegistry.register(QueryParamsResponse.typeUrl, QueryParamsResponse);
 function createBaseQueryPoolBatchSwapMsgsRequest(): QueryPoolBatchSwapMsgsRequest {
   return {
     poolId: BigInt(0),
@@ -1391,6 +1492,15 @@ function createBaseQueryPoolBatchSwapMsgsRequest(): QueryPoolBatchSwapMsgsReques
 }
 export const QueryPoolBatchSwapMsgsRequest = {
   typeUrl: "/Victor118.liquidity.v1beta1.QueryPoolBatchSwapMsgsRequest",
+  is(o: any): o is QueryPoolBatchSwapMsgsRequest {
+    return o && (o.$typeUrl === QueryPoolBatchSwapMsgsRequest.typeUrl || typeof o.poolId === "bigint");
+  },
+  isSDK(o: any): o is QueryPoolBatchSwapMsgsRequestSDKType {
+    return o && (o.$typeUrl === QueryPoolBatchSwapMsgsRequest.typeUrl || typeof o.pool_id === "bigint");
+  },
+  isAmino(o: any): o is QueryPoolBatchSwapMsgsRequestAmino {
+    return o && (o.$typeUrl === QueryPoolBatchSwapMsgsRequest.typeUrl || typeof o.pool_id === "bigint");
+  },
   encode(message: QueryPoolBatchSwapMsgsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.poolId !== BigInt(0)) {
       writer.uint32(8).uint64(message.poolId);
@@ -1458,6 +1568,7 @@ export const QueryPoolBatchSwapMsgsRequest = {
     };
   }
 };
+GlobalDecoderRegistry.register(QueryPoolBatchSwapMsgsRequest.typeUrl, QueryPoolBatchSwapMsgsRequest);
 function createBaseQueryPoolBatchSwapMsgRequest(): QueryPoolBatchSwapMsgRequest {
   return {
     poolId: BigInt(0),
@@ -1466,6 +1577,15 @@ function createBaseQueryPoolBatchSwapMsgRequest(): QueryPoolBatchSwapMsgRequest 
 }
 export const QueryPoolBatchSwapMsgRequest = {
   typeUrl: "/Victor118.liquidity.v1beta1.QueryPoolBatchSwapMsgRequest",
+  is(o: any): o is QueryPoolBatchSwapMsgRequest {
+    return o && (o.$typeUrl === QueryPoolBatchSwapMsgRequest.typeUrl || typeof o.poolId === "bigint" && typeof o.msgIndex === "bigint");
+  },
+  isSDK(o: any): o is QueryPoolBatchSwapMsgRequestSDKType {
+    return o && (o.$typeUrl === QueryPoolBatchSwapMsgRequest.typeUrl || typeof o.pool_id === "bigint" && typeof o.msg_index === "bigint");
+  },
+  isAmino(o: any): o is QueryPoolBatchSwapMsgRequestAmino {
+    return o && (o.$typeUrl === QueryPoolBatchSwapMsgRequest.typeUrl || typeof o.pool_id === "bigint" && typeof o.msg_index === "bigint");
+  },
   encode(message: QueryPoolBatchSwapMsgRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.poolId !== BigInt(0)) {
       writer.uint32(8).uint64(message.poolId);
@@ -1533,6 +1653,7 @@ export const QueryPoolBatchSwapMsgRequest = {
     };
   }
 };
+GlobalDecoderRegistry.register(QueryPoolBatchSwapMsgRequest.typeUrl, QueryPoolBatchSwapMsgRequest);
 function createBaseQueryPoolBatchSwapMsgsResponse(): QueryPoolBatchSwapMsgsResponse {
   return {
     swaps: [],
@@ -1541,6 +1662,15 @@ function createBaseQueryPoolBatchSwapMsgsResponse(): QueryPoolBatchSwapMsgsRespo
 }
 export const QueryPoolBatchSwapMsgsResponse = {
   typeUrl: "/Victor118.liquidity.v1beta1.QueryPoolBatchSwapMsgsResponse",
+  is(o: any): o is QueryPoolBatchSwapMsgsResponse {
+    return o && (o.$typeUrl === QueryPoolBatchSwapMsgsResponse.typeUrl || Array.isArray(o.swaps) && (!o.swaps.length || SwapMsgState.is(o.swaps[0])));
+  },
+  isSDK(o: any): o is QueryPoolBatchSwapMsgsResponseSDKType {
+    return o && (o.$typeUrl === QueryPoolBatchSwapMsgsResponse.typeUrl || Array.isArray(o.swaps) && (!o.swaps.length || SwapMsgState.isSDK(o.swaps[0])));
+  },
+  isAmino(o: any): o is QueryPoolBatchSwapMsgsResponseAmino {
+    return o && (o.$typeUrl === QueryPoolBatchSwapMsgsResponse.typeUrl || Array.isArray(o.swaps) && (!o.swaps.length || SwapMsgState.isAmino(o.swaps[0])));
+  },
   encode(message: QueryPoolBatchSwapMsgsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.swaps) {
       SwapMsgState.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -1610,6 +1740,7 @@ export const QueryPoolBatchSwapMsgsResponse = {
     };
   }
 };
+GlobalDecoderRegistry.register(QueryPoolBatchSwapMsgsResponse.typeUrl, QueryPoolBatchSwapMsgsResponse);
 function createBaseQueryPoolBatchSwapMsgResponse(): QueryPoolBatchSwapMsgResponse {
   return {
     swap: SwapMsgState.fromPartial({})
@@ -1617,6 +1748,15 @@ function createBaseQueryPoolBatchSwapMsgResponse(): QueryPoolBatchSwapMsgRespons
 }
 export const QueryPoolBatchSwapMsgResponse = {
   typeUrl: "/Victor118.liquidity.v1beta1.QueryPoolBatchSwapMsgResponse",
+  is(o: any): o is QueryPoolBatchSwapMsgResponse {
+    return o && (o.$typeUrl === QueryPoolBatchSwapMsgResponse.typeUrl || SwapMsgState.is(o.swap));
+  },
+  isSDK(o: any): o is QueryPoolBatchSwapMsgResponseSDKType {
+    return o && (o.$typeUrl === QueryPoolBatchSwapMsgResponse.typeUrl || SwapMsgState.isSDK(o.swap));
+  },
+  isAmino(o: any): o is QueryPoolBatchSwapMsgResponseAmino {
+    return o && (o.$typeUrl === QueryPoolBatchSwapMsgResponse.typeUrl || SwapMsgState.isAmino(o.swap));
+  },
   encode(message: QueryPoolBatchSwapMsgResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.swap !== undefined) {
       SwapMsgState.encode(message.swap, writer.uint32(10).fork()).ldelim();
@@ -1673,6 +1813,7 @@ export const QueryPoolBatchSwapMsgResponse = {
     };
   }
 };
+GlobalDecoderRegistry.register(QueryPoolBatchSwapMsgResponse.typeUrl, QueryPoolBatchSwapMsgResponse);
 function createBaseQueryPoolBatchDepositMsgsRequest(): QueryPoolBatchDepositMsgsRequest {
   return {
     poolId: BigInt(0),
@@ -1681,6 +1822,15 @@ function createBaseQueryPoolBatchDepositMsgsRequest(): QueryPoolBatchDepositMsgs
 }
 export const QueryPoolBatchDepositMsgsRequest = {
   typeUrl: "/Victor118.liquidity.v1beta1.QueryPoolBatchDepositMsgsRequest",
+  is(o: any): o is QueryPoolBatchDepositMsgsRequest {
+    return o && (o.$typeUrl === QueryPoolBatchDepositMsgsRequest.typeUrl || typeof o.poolId === "bigint");
+  },
+  isSDK(o: any): o is QueryPoolBatchDepositMsgsRequestSDKType {
+    return o && (o.$typeUrl === QueryPoolBatchDepositMsgsRequest.typeUrl || typeof o.pool_id === "bigint");
+  },
+  isAmino(o: any): o is QueryPoolBatchDepositMsgsRequestAmino {
+    return o && (o.$typeUrl === QueryPoolBatchDepositMsgsRequest.typeUrl || typeof o.pool_id === "bigint");
+  },
   encode(message: QueryPoolBatchDepositMsgsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.poolId !== BigInt(0)) {
       writer.uint32(8).uint64(message.poolId);
@@ -1748,6 +1898,7 @@ export const QueryPoolBatchDepositMsgsRequest = {
     };
   }
 };
+GlobalDecoderRegistry.register(QueryPoolBatchDepositMsgsRequest.typeUrl, QueryPoolBatchDepositMsgsRequest);
 function createBaseQueryPoolBatchDepositMsgRequest(): QueryPoolBatchDepositMsgRequest {
   return {
     poolId: BigInt(0),
@@ -1756,6 +1907,15 @@ function createBaseQueryPoolBatchDepositMsgRequest(): QueryPoolBatchDepositMsgRe
 }
 export const QueryPoolBatchDepositMsgRequest = {
   typeUrl: "/Victor118.liquidity.v1beta1.QueryPoolBatchDepositMsgRequest",
+  is(o: any): o is QueryPoolBatchDepositMsgRequest {
+    return o && (o.$typeUrl === QueryPoolBatchDepositMsgRequest.typeUrl || typeof o.poolId === "bigint" && typeof o.msgIndex === "bigint");
+  },
+  isSDK(o: any): o is QueryPoolBatchDepositMsgRequestSDKType {
+    return o && (o.$typeUrl === QueryPoolBatchDepositMsgRequest.typeUrl || typeof o.pool_id === "bigint" && typeof o.msg_index === "bigint");
+  },
+  isAmino(o: any): o is QueryPoolBatchDepositMsgRequestAmino {
+    return o && (o.$typeUrl === QueryPoolBatchDepositMsgRequest.typeUrl || typeof o.pool_id === "bigint" && typeof o.msg_index === "bigint");
+  },
   encode(message: QueryPoolBatchDepositMsgRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.poolId !== BigInt(0)) {
       writer.uint32(8).uint64(message.poolId);
@@ -1823,6 +1983,7 @@ export const QueryPoolBatchDepositMsgRequest = {
     };
   }
 };
+GlobalDecoderRegistry.register(QueryPoolBatchDepositMsgRequest.typeUrl, QueryPoolBatchDepositMsgRequest);
 function createBaseQueryPoolBatchDepositMsgsResponse(): QueryPoolBatchDepositMsgsResponse {
   return {
     deposits: [],
@@ -1831,6 +1992,15 @@ function createBaseQueryPoolBatchDepositMsgsResponse(): QueryPoolBatchDepositMsg
 }
 export const QueryPoolBatchDepositMsgsResponse = {
   typeUrl: "/Victor118.liquidity.v1beta1.QueryPoolBatchDepositMsgsResponse",
+  is(o: any): o is QueryPoolBatchDepositMsgsResponse {
+    return o && (o.$typeUrl === QueryPoolBatchDepositMsgsResponse.typeUrl || Array.isArray(o.deposits) && (!o.deposits.length || DepositMsgState.is(o.deposits[0])));
+  },
+  isSDK(o: any): o is QueryPoolBatchDepositMsgsResponseSDKType {
+    return o && (o.$typeUrl === QueryPoolBatchDepositMsgsResponse.typeUrl || Array.isArray(o.deposits) && (!o.deposits.length || DepositMsgState.isSDK(o.deposits[0])));
+  },
+  isAmino(o: any): o is QueryPoolBatchDepositMsgsResponseAmino {
+    return o && (o.$typeUrl === QueryPoolBatchDepositMsgsResponse.typeUrl || Array.isArray(o.deposits) && (!o.deposits.length || DepositMsgState.isAmino(o.deposits[0])));
+  },
   encode(message: QueryPoolBatchDepositMsgsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.deposits) {
       DepositMsgState.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -1900,6 +2070,7 @@ export const QueryPoolBatchDepositMsgsResponse = {
     };
   }
 };
+GlobalDecoderRegistry.register(QueryPoolBatchDepositMsgsResponse.typeUrl, QueryPoolBatchDepositMsgsResponse);
 function createBaseQueryPoolBatchDepositMsgResponse(): QueryPoolBatchDepositMsgResponse {
   return {
     deposit: DepositMsgState.fromPartial({})
@@ -1907,6 +2078,15 @@ function createBaseQueryPoolBatchDepositMsgResponse(): QueryPoolBatchDepositMsgR
 }
 export const QueryPoolBatchDepositMsgResponse = {
   typeUrl: "/Victor118.liquidity.v1beta1.QueryPoolBatchDepositMsgResponse",
+  is(o: any): o is QueryPoolBatchDepositMsgResponse {
+    return o && (o.$typeUrl === QueryPoolBatchDepositMsgResponse.typeUrl || DepositMsgState.is(o.deposit));
+  },
+  isSDK(o: any): o is QueryPoolBatchDepositMsgResponseSDKType {
+    return o && (o.$typeUrl === QueryPoolBatchDepositMsgResponse.typeUrl || DepositMsgState.isSDK(o.deposit));
+  },
+  isAmino(o: any): o is QueryPoolBatchDepositMsgResponseAmino {
+    return o && (o.$typeUrl === QueryPoolBatchDepositMsgResponse.typeUrl || DepositMsgState.isAmino(o.deposit));
+  },
   encode(message: QueryPoolBatchDepositMsgResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.deposit !== undefined) {
       DepositMsgState.encode(message.deposit, writer.uint32(10).fork()).ldelim();
@@ -1963,6 +2143,7 @@ export const QueryPoolBatchDepositMsgResponse = {
     };
   }
 };
+GlobalDecoderRegistry.register(QueryPoolBatchDepositMsgResponse.typeUrl, QueryPoolBatchDepositMsgResponse);
 function createBaseQueryPoolBatchWithdrawMsgsRequest(): QueryPoolBatchWithdrawMsgsRequest {
   return {
     poolId: BigInt(0),
@@ -1971,6 +2152,15 @@ function createBaseQueryPoolBatchWithdrawMsgsRequest(): QueryPoolBatchWithdrawMs
 }
 export const QueryPoolBatchWithdrawMsgsRequest = {
   typeUrl: "/Victor118.liquidity.v1beta1.QueryPoolBatchWithdrawMsgsRequest",
+  is(o: any): o is QueryPoolBatchWithdrawMsgsRequest {
+    return o && (o.$typeUrl === QueryPoolBatchWithdrawMsgsRequest.typeUrl || typeof o.poolId === "bigint");
+  },
+  isSDK(o: any): o is QueryPoolBatchWithdrawMsgsRequestSDKType {
+    return o && (o.$typeUrl === QueryPoolBatchWithdrawMsgsRequest.typeUrl || typeof o.pool_id === "bigint");
+  },
+  isAmino(o: any): o is QueryPoolBatchWithdrawMsgsRequestAmino {
+    return o && (o.$typeUrl === QueryPoolBatchWithdrawMsgsRequest.typeUrl || typeof o.pool_id === "bigint");
+  },
   encode(message: QueryPoolBatchWithdrawMsgsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.poolId !== BigInt(0)) {
       writer.uint32(8).uint64(message.poolId);
@@ -2038,6 +2228,7 @@ export const QueryPoolBatchWithdrawMsgsRequest = {
     };
   }
 };
+GlobalDecoderRegistry.register(QueryPoolBatchWithdrawMsgsRequest.typeUrl, QueryPoolBatchWithdrawMsgsRequest);
 function createBaseQueryPoolBatchWithdrawMsgRequest(): QueryPoolBatchWithdrawMsgRequest {
   return {
     poolId: BigInt(0),
@@ -2046,6 +2237,15 @@ function createBaseQueryPoolBatchWithdrawMsgRequest(): QueryPoolBatchWithdrawMsg
 }
 export const QueryPoolBatchWithdrawMsgRequest = {
   typeUrl: "/Victor118.liquidity.v1beta1.QueryPoolBatchWithdrawMsgRequest",
+  is(o: any): o is QueryPoolBatchWithdrawMsgRequest {
+    return o && (o.$typeUrl === QueryPoolBatchWithdrawMsgRequest.typeUrl || typeof o.poolId === "bigint" && typeof o.msgIndex === "bigint");
+  },
+  isSDK(o: any): o is QueryPoolBatchWithdrawMsgRequestSDKType {
+    return o && (o.$typeUrl === QueryPoolBatchWithdrawMsgRequest.typeUrl || typeof o.pool_id === "bigint" && typeof o.msg_index === "bigint");
+  },
+  isAmino(o: any): o is QueryPoolBatchWithdrawMsgRequestAmino {
+    return o && (o.$typeUrl === QueryPoolBatchWithdrawMsgRequest.typeUrl || typeof o.pool_id === "bigint" && typeof o.msg_index === "bigint");
+  },
   encode(message: QueryPoolBatchWithdrawMsgRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.poolId !== BigInt(0)) {
       writer.uint32(8).uint64(message.poolId);
@@ -2113,6 +2313,7 @@ export const QueryPoolBatchWithdrawMsgRequest = {
     };
   }
 };
+GlobalDecoderRegistry.register(QueryPoolBatchWithdrawMsgRequest.typeUrl, QueryPoolBatchWithdrawMsgRequest);
 function createBaseQueryPoolBatchWithdrawMsgsResponse(): QueryPoolBatchWithdrawMsgsResponse {
   return {
     withdraws: [],
@@ -2121,6 +2322,15 @@ function createBaseQueryPoolBatchWithdrawMsgsResponse(): QueryPoolBatchWithdrawM
 }
 export const QueryPoolBatchWithdrawMsgsResponse = {
   typeUrl: "/Victor118.liquidity.v1beta1.QueryPoolBatchWithdrawMsgsResponse",
+  is(o: any): o is QueryPoolBatchWithdrawMsgsResponse {
+    return o && (o.$typeUrl === QueryPoolBatchWithdrawMsgsResponse.typeUrl || Array.isArray(o.withdraws) && (!o.withdraws.length || WithdrawMsgState.is(o.withdraws[0])));
+  },
+  isSDK(o: any): o is QueryPoolBatchWithdrawMsgsResponseSDKType {
+    return o && (o.$typeUrl === QueryPoolBatchWithdrawMsgsResponse.typeUrl || Array.isArray(o.withdraws) && (!o.withdraws.length || WithdrawMsgState.isSDK(o.withdraws[0])));
+  },
+  isAmino(o: any): o is QueryPoolBatchWithdrawMsgsResponseAmino {
+    return o && (o.$typeUrl === QueryPoolBatchWithdrawMsgsResponse.typeUrl || Array.isArray(o.withdraws) && (!o.withdraws.length || WithdrawMsgState.isAmino(o.withdraws[0])));
+  },
   encode(message: QueryPoolBatchWithdrawMsgsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.withdraws) {
       WithdrawMsgState.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -2190,6 +2400,7 @@ export const QueryPoolBatchWithdrawMsgsResponse = {
     };
   }
 };
+GlobalDecoderRegistry.register(QueryPoolBatchWithdrawMsgsResponse.typeUrl, QueryPoolBatchWithdrawMsgsResponse);
 function createBaseQueryPoolBatchWithdrawMsgResponse(): QueryPoolBatchWithdrawMsgResponse {
   return {
     withdraw: WithdrawMsgState.fromPartial({})
@@ -2197,6 +2408,15 @@ function createBaseQueryPoolBatchWithdrawMsgResponse(): QueryPoolBatchWithdrawMs
 }
 export const QueryPoolBatchWithdrawMsgResponse = {
   typeUrl: "/Victor118.liquidity.v1beta1.QueryPoolBatchWithdrawMsgResponse",
+  is(o: any): o is QueryPoolBatchWithdrawMsgResponse {
+    return o && (o.$typeUrl === QueryPoolBatchWithdrawMsgResponse.typeUrl || WithdrawMsgState.is(o.withdraw));
+  },
+  isSDK(o: any): o is QueryPoolBatchWithdrawMsgResponseSDKType {
+    return o && (o.$typeUrl === QueryPoolBatchWithdrawMsgResponse.typeUrl || WithdrawMsgState.isSDK(o.withdraw));
+  },
+  isAmino(o: any): o is QueryPoolBatchWithdrawMsgResponseAmino {
+    return o && (o.$typeUrl === QueryPoolBatchWithdrawMsgResponse.typeUrl || WithdrawMsgState.isAmino(o.withdraw));
+  },
   encode(message: QueryPoolBatchWithdrawMsgResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.withdraw !== undefined) {
       WithdrawMsgState.encode(message.withdraw, writer.uint32(10).fork()).ldelim();
@@ -2253,3 +2473,4 @@ export const QueryPoolBatchWithdrawMsgResponse = {
     };
   }
 };
+GlobalDecoderRegistry.register(QueryPoolBatchWithdrawMsgResponse.typeUrl, QueryPoolBatchWithdrawMsgResponse);

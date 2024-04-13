@@ -1,6 +1,7 @@
 import { Coin, CoinAmino, CoinSDKType } from "../../../cosmos/base/v1beta1/coin";
 import { MsgDepositWithinBatch, MsgDepositWithinBatchAmino, MsgDepositWithinBatchSDKType, MsgWithdrawWithinBatch, MsgWithdrawWithinBatchAmino, MsgWithdrawWithinBatchSDKType, MsgSwapWithinBatch, MsgSwapWithinBatchAmino, MsgSwapWithinBatchSDKType } from "./tx";
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { GlobalDecoderRegistry } from "../../../registry";
 import { Decimal } from "@cosmjs/math";
 /**
  * Structure for the pool type to distinguish the characteristics of the reserve
@@ -510,6 +511,15 @@ function createBasePoolType(): PoolType {
 }
 export const PoolType = {
   typeUrl: "/Victor118.liquidity.v1beta1.PoolType",
+  is(o: any): o is PoolType {
+    return o && (o.$typeUrl === PoolType.typeUrl || typeof o.id === "number" && typeof o.name === "string" && typeof o.minReserveCoinNum === "number" && typeof o.maxReserveCoinNum === "number" && typeof o.description === "string");
+  },
+  isSDK(o: any): o is PoolTypeSDKType {
+    return o && (o.$typeUrl === PoolType.typeUrl || typeof o.id === "number" && typeof o.name === "string" && typeof o.min_reserve_coin_num === "number" && typeof o.max_reserve_coin_num === "number" && typeof o.description === "string");
+  },
+  isAmino(o: any): o is PoolTypeAmino {
+    return o && (o.$typeUrl === PoolType.typeUrl || typeof o.id === "number" && typeof o.name === "string" && typeof o.min_reserve_coin_num === "number" && typeof o.max_reserve_coin_num === "number" && typeof o.description === "string");
+  },
   encode(message: PoolType, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.id !== 0) {
       writer.uint32(8).uint32(message.id);
@@ -610,6 +620,7 @@ export const PoolType = {
     };
   }
 };
+GlobalDecoderRegistry.register(PoolType.typeUrl, PoolType);
 function createBaseParams(): Params {
   return {
     poolTypes: [],
@@ -626,6 +637,15 @@ function createBaseParams(): Params {
 }
 export const Params = {
   typeUrl: "/Victor118.liquidity.v1beta1.Params",
+  is(o: any): o is Params {
+    return o && (o.$typeUrl === Params.typeUrl || Array.isArray(o.poolTypes) && (!o.poolTypes.length || PoolType.is(o.poolTypes[0])) && typeof o.minInitDepositAmount === "string" && typeof o.initPoolCoinMintAmount === "string" && typeof o.maxReserveCoinAmount === "string" && Array.isArray(o.poolCreationFee) && (!o.poolCreationFee.length || Coin.is(o.poolCreationFee[0])) && typeof o.swapFeeRate === "string" && typeof o.withdrawFeeRate === "string" && typeof o.maxOrderAmountRatio === "string" && typeof o.unitBatchHeight === "number" && typeof o.circuitBreakerEnabled === "boolean");
+  },
+  isSDK(o: any): o is ParamsSDKType {
+    return o && (o.$typeUrl === Params.typeUrl || Array.isArray(o.pool_types) && (!o.pool_types.length || PoolType.isSDK(o.pool_types[0])) && typeof o.min_init_deposit_amount === "string" && typeof o.init_pool_coin_mint_amount === "string" && typeof o.max_reserve_coin_amount === "string" && Array.isArray(o.pool_creation_fee) && (!o.pool_creation_fee.length || Coin.isSDK(o.pool_creation_fee[0])) && typeof o.swap_fee_rate === "string" && typeof o.withdraw_fee_rate === "string" && typeof o.max_order_amount_ratio === "string" && typeof o.unit_batch_height === "number" && typeof o.circuit_breaker_enabled === "boolean");
+  },
+  isAmino(o: any): o is ParamsAmino {
+    return o && (o.$typeUrl === Params.typeUrl || Array.isArray(o.pool_types) && (!o.pool_types.length || PoolType.isAmino(o.pool_types[0])) && typeof o.min_init_deposit_amount === "string" && typeof o.init_pool_coin_mint_amount === "string" && typeof o.max_reserve_coin_amount === "string" && Array.isArray(o.pool_creation_fee) && (!o.pool_creation_fee.length || Coin.isAmino(o.pool_creation_fee[0])) && typeof o.swap_fee_rate === "string" && typeof o.withdraw_fee_rate === "string" && typeof o.max_order_amount_ratio === "string" && typeof o.unit_batch_height === "number" && typeof o.circuit_breaker_enabled === "boolean");
+  },
   encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.poolTypes) {
       PoolType.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -785,6 +805,7 @@ export const Params = {
     };
   }
 };
+GlobalDecoderRegistry.register(Params.typeUrl, Params);
 function createBasePool(): Pool {
   return {
     id: BigInt(0),
@@ -796,6 +817,15 @@ function createBasePool(): Pool {
 }
 export const Pool = {
   typeUrl: "/Victor118.liquidity.v1beta1.Pool",
+  is(o: any): o is Pool {
+    return o && (o.$typeUrl === Pool.typeUrl || typeof o.id === "bigint" && typeof o.typeId === "number" && Array.isArray(o.reserveCoinDenoms) && (!o.reserveCoinDenoms.length || typeof o.reserveCoinDenoms[0] === "string") && typeof o.reserveAccountAddress === "string" && typeof o.poolCoinDenom === "string");
+  },
+  isSDK(o: any): o is PoolSDKType {
+    return o && (o.$typeUrl === Pool.typeUrl || typeof o.id === "bigint" && typeof o.type_id === "number" && Array.isArray(o.reserve_coin_denoms) && (!o.reserve_coin_denoms.length || typeof o.reserve_coin_denoms[0] === "string") && typeof o.reserve_account_address === "string" && typeof o.pool_coin_denom === "string");
+  },
+  isAmino(o: any): o is PoolAmino {
+    return o && (o.$typeUrl === Pool.typeUrl || typeof o.id === "bigint" && typeof o.type_id === "number" && Array.isArray(o.reserve_coin_denoms) && (!o.reserve_coin_denoms.length || typeof o.reserve_coin_denoms[0] === "string") && typeof o.reserve_account_address === "string" && typeof o.pool_coin_denom === "string");
+  },
   encode(message: Pool, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.id !== BigInt(0)) {
       writer.uint32(8).uint64(message.id);
@@ -898,6 +928,7 @@ export const Pool = {
     };
   }
 };
+GlobalDecoderRegistry.register(Pool.typeUrl, Pool);
 function createBasePoolMetadata(): PoolMetadata {
   return {
     poolId: BigInt(0),
@@ -907,6 +938,15 @@ function createBasePoolMetadata(): PoolMetadata {
 }
 export const PoolMetadata = {
   typeUrl: "/Victor118.liquidity.v1beta1.PoolMetadata",
+  is(o: any): o is PoolMetadata {
+    return o && (o.$typeUrl === PoolMetadata.typeUrl || typeof o.poolId === "bigint" && Coin.is(o.poolCoinTotalSupply) && Array.isArray(o.reserveCoins) && (!o.reserveCoins.length || Coin.is(o.reserveCoins[0])));
+  },
+  isSDK(o: any): o is PoolMetadataSDKType {
+    return o && (o.$typeUrl === PoolMetadata.typeUrl || typeof o.pool_id === "bigint" && Coin.isSDK(o.pool_coin_total_supply) && Array.isArray(o.reserve_coins) && (!o.reserve_coins.length || Coin.isSDK(o.reserve_coins[0])));
+  },
+  isAmino(o: any): o is PoolMetadataAmino {
+    return o && (o.$typeUrl === PoolMetadata.typeUrl || typeof o.pool_id === "bigint" && Coin.isAmino(o.pool_coin_total_supply) && Array.isArray(o.reserve_coins) && (!o.reserve_coins.length || Coin.isAmino(o.reserve_coins[0])));
+  },
   encode(message: PoolMetadata, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.poolId !== BigInt(0)) {
       writer.uint32(8).uint64(message.poolId);
@@ -987,6 +1027,7 @@ export const PoolMetadata = {
     };
   }
 };
+GlobalDecoderRegistry.register(PoolMetadata.typeUrl, PoolMetadata);
 function createBasePoolBatch(): PoolBatch {
   return {
     poolId: BigInt(0),
@@ -1000,6 +1041,15 @@ function createBasePoolBatch(): PoolBatch {
 }
 export const PoolBatch = {
   typeUrl: "/Victor118.liquidity.v1beta1.PoolBatch",
+  is(o: any): o is PoolBatch {
+    return o && (o.$typeUrl === PoolBatch.typeUrl || typeof o.poolId === "bigint" && typeof o.index === "bigint" && typeof o.beginHeight === "bigint" && typeof o.depositMsgIndex === "bigint" && typeof o.withdrawMsgIndex === "bigint" && typeof o.swapMsgIndex === "bigint" && typeof o.executed === "boolean");
+  },
+  isSDK(o: any): o is PoolBatchSDKType {
+    return o && (o.$typeUrl === PoolBatch.typeUrl || typeof o.pool_id === "bigint" && typeof o.index === "bigint" && typeof o.begin_height === "bigint" && typeof o.deposit_msg_index === "bigint" && typeof o.withdraw_msg_index === "bigint" && typeof o.swap_msg_index === "bigint" && typeof o.executed === "boolean");
+  },
+  isAmino(o: any): o is PoolBatchAmino {
+    return o && (o.$typeUrl === PoolBatch.typeUrl || typeof o.pool_id === "bigint" && typeof o.index === "bigint" && typeof o.begin_height === "bigint" && typeof o.deposit_msg_index === "bigint" && typeof o.withdraw_msg_index === "bigint" && typeof o.swap_msg_index === "bigint" && typeof o.executed === "boolean");
+  },
   encode(message: PoolBatch, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.poolId !== BigInt(0)) {
       writer.uint32(8).uint64(message.poolId);
@@ -1122,6 +1172,7 @@ export const PoolBatch = {
     };
   }
 };
+GlobalDecoderRegistry.register(PoolBatch.typeUrl, PoolBatch);
 function createBaseDepositMsgState(): DepositMsgState {
   return {
     msgHeight: BigInt(0),
@@ -1134,6 +1185,15 @@ function createBaseDepositMsgState(): DepositMsgState {
 }
 export const DepositMsgState = {
   typeUrl: "/Victor118.liquidity.v1beta1.DepositMsgState",
+  is(o: any): o is DepositMsgState {
+    return o && (o.$typeUrl === DepositMsgState.typeUrl || typeof o.msgHeight === "bigint" && typeof o.msgIndex === "bigint" && typeof o.executed === "boolean" && typeof o.succeeded === "boolean" && typeof o.toBeDeleted === "boolean");
+  },
+  isSDK(o: any): o is DepositMsgStateSDKType {
+    return o && (o.$typeUrl === DepositMsgState.typeUrl || typeof o.msg_height === "bigint" && typeof o.msg_index === "bigint" && typeof o.executed === "boolean" && typeof o.succeeded === "boolean" && typeof o.to_be_deleted === "boolean");
+  },
+  isAmino(o: any): o is DepositMsgStateAmino {
+    return o && (o.$typeUrl === DepositMsgState.typeUrl || typeof o.msg_height === "bigint" && typeof o.msg_index === "bigint" && typeof o.executed === "boolean" && typeof o.succeeded === "boolean" && typeof o.to_be_deleted === "boolean");
+  },
   encode(message: DepositMsgState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.msgHeight !== BigInt(0)) {
       writer.uint32(8).int64(message.msgHeight);
@@ -1245,6 +1305,7 @@ export const DepositMsgState = {
     };
   }
 };
+GlobalDecoderRegistry.register(DepositMsgState.typeUrl, DepositMsgState);
 function createBaseWithdrawMsgState(): WithdrawMsgState {
   return {
     msgHeight: BigInt(0),
@@ -1257,6 +1318,15 @@ function createBaseWithdrawMsgState(): WithdrawMsgState {
 }
 export const WithdrawMsgState = {
   typeUrl: "/Victor118.liquidity.v1beta1.WithdrawMsgState",
+  is(o: any): o is WithdrawMsgState {
+    return o && (o.$typeUrl === WithdrawMsgState.typeUrl || typeof o.msgHeight === "bigint" && typeof o.msgIndex === "bigint" && typeof o.executed === "boolean" && typeof o.succeeded === "boolean" && typeof o.toBeDeleted === "boolean");
+  },
+  isSDK(o: any): o is WithdrawMsgStateSDKType {
+    return o && (o.$typeUrl === WithdrawMsgState.typeUrl || typeof o.msg_height === "bigint" && typeof o.msg_index === "bigint" && typeof o.executed === "boolean" && typeof o.succeeded === "boolean" && typeof o.to_be_deleted === "boolean");
+  },
+  isAmino(o: any): o is WithdrawMsgStateAmino {
+    return o && (o.$typeUrl === WithdrawMsgState.typeUrl || typeof o.msg_height === "bigint" && typeof o.msg_index === "bigint" && typeof o.executed === "boolean" && typeof o.succeeded === "boolean" && typeof o.to_be_deleted === "boolean");
+  },
   encode(message: WithdrawMsgState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.msgHeight !== BigInt(0)) {
       writer.uint32(8).int64(message.msgHeight);
@@ -1368,6 +1438,7 @@ export const WithdrawMsgState = {
     };
   }
 };
+GlobalDecoderRegistry.register(WithdrawMsgState.typeUrl, WithdrawMsgState);
 function createBaseSwapMsgState(): SwapMsgState {
   return {
     msgHeight: BigInt(0),
@@ -1384,6 +1455,15 @@ function createBaseSwapMsgState(): SwapMsgState {
 }
 export const SwapMsgState = {
   typeUrl: "/Victor118.liquidity.v1beta1.SwapMsgState",
+  is(o: any): o is SwapMsgState {
+    return o && (o.$typeUrl === SwapMsgState.typeUrl || typeof o.msgHeight === "bigint" && typeof o.msgIndex === "bigint" && typeof o.executed === "boolean" && typeof o.succeeded === "boolean" && typeof o.toBeDeleted === "boolean" && typeof o.orderExpiryHeight === "bigint" && Coin.is(o.exchangedOfferCoin) && Coin.is(o.remainingOfferCoin) && Coin.is(o.reservedOfferCoinFee));
+  },
+  isSDK(o: any): o is SwapMsgStateSDKType {
+    return o && (o.$typeUrl === SwapMsgState.typeUrl || typeof o.msg_height === "bigint" && typeof o.msg_index === "bigint" && typeof o.executed === "boolean" && typeof o.succeeded === "boolean" && typeof o.to_be_deleted === "boolean" && typeof o.order_expiry_height === "bigint" && Coin.isSDK(o.exchanged_offer_coin) && Coin.isSDK(o.remaining_offer_coin) && Coin.isSDK(o.reserved_offer_coin_fee));
+  },
+  isAmino(o: any): o is SwapMsgStateAmino {
+    return o && (o.$typeUrl === SwapMsgState.typeUrl || typeof o.msg_height === "bigint" && typeof o.msg_index === "bigint" && typeof o.executed === "boolean" && typeof o.succeeded === "boolean" && typeof o.to_be_deleted === "boolean" && typeof o.order_expiry_height === "bigint" && Coin.isAmino(o.exchanged_offer_coin) && Coin.isAmino(o.remaining_offer_coin) && Coin.isAmino(o.reserved_offer_coin_fee));
+  },
   encode(message: SwapMsgState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.msgHeight !== BigInt(0)) {
       writer.uint32(8).int64(message.msgHeight);
@@ -1539,3 +1619,4 @@ export const SwapMsgState = {
     };
   }
 };
+GlobalDecoderRegistry.register(SwapMsgState.typeUrl, SwapMsgState);

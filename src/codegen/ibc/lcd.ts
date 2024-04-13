@@ -24,20 +24,8 @@ export const createLCDClient = async ({
           requestClient
         })
       },
-      base: {
-        tendermint: {
-          v1beta1: new (await import("../cosmos/base/tendermint/v1beta1/query.lcd")).LCDQueryClient({
-            requestClient
-          })
-        }
-      },
       distribution: {
         v1beta1: new (await import("../cosmos/distribution/v1beta1/query.lcd")).LCDQueryClient({
-          requestClient
-        })
-      },
-      evidence: {
-        v1beta1: new (await import("../cosmos/evidence/v1beta1/query.lcd")).LCDQueryClient({
           requestClient
         })
       },
@@ -64,18 +52,8 @@ export const createLCDClient = async ({
           requestClient
         })
       },
-      nft: {
-        v1beta1: new (await import("../cosmos/nft/v1beta1/query.lcd")).LCDQueryClient({
-          requestClient
-        })
-      },
       params: {
         v1beta1: new (await import("../cosmos/params/v1beta1/query.lcd")).LCDQueryClient({
-          requestClient
-        })
-      },
-      slashing: {
-        v1beta1: new (await import("../cosmos/slashing/v1beta1/query.lcd")).LCDQueryClient({
           requestClient
         })
       },

@@ -18,14 +18,18 @@ telescope({
       ],
       patterns: ['**/*amino.ts', '**/*registry.ts']
     },
+    interfaces: {
+      enabled: true,
+      useGlobalDecoderRegistry: true,
+      useUnionTypes: true
+    },
     prototypes: {
       includePackageVar: false,
       removeUnusedImports: true,
       experimentalGlobalProtoNamespace: true,
-      interfaces: {
-        enabled: true,
-        useUnionTypes: false
-      },
+      addTypeUrlToObjects: true,
+      addTypeUrlToDecoders: true,
+      addAminoTypeToObjects: true,
       excluded: {
         packages: [
           'ibc.applications.fee.v1', // issue with parsing protos (LCD routes with nested objects in params)
@@ -74,17 +78,17 @@ telescope({
       timestamp: 'date',
       useExact: false,
       useDeepPartial: false,
-      num64: 'bigint',
+      num64: 'long',
       customTypes: {
         useCosmosSDKDec: true
-      }
+      },
     },
     aminoEncoding: {
       enabled: true,
       exceptions: AMINO_MAP
     },
     lcdClients: {
-      enabled: false
+      enabled: true
     },
     rpcClients: {
       enabled: true,

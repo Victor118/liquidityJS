@@ -1,6 +1,6 @@
 {
   "name": "@victor118/liquidityjs",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "Automated Market Maker",
   "author": "Victor118 <blockchainisons@gmail.com>",
   "homepage": "https://github.com/Victor118/liquidityJS#readme",
@@ -44,9 +44,12 @@
   "devDependencies": {
     "@cosmology/telescope": "^1.5.4",
     "@protobufs/amino": "^0.0.11",
+    "@protobufs/confio": "^0.0.6",
     "@protobufs/cosmos": "^0.1.0",
     "@protobufs/cosmos_proto": "^0.0.10",
+    "@protobufs/cosmwasm": "^0.1.1",
     "@protobufs/gogoproto": "^0.0.10",
+    "@protobufs/google": "^0.0.10",
     "@protobufs/ibc": "^0.1.0",
     "@protobufs/tendermint": "^0.0.10",
     "@types/jest": "^29.5.0",
@@ -62,9 +65,10 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
-    "@cosmjs/amino": "0.29.4",
-    "@cosmjs/proto-signing": "0.29.4",
-    "@cosmjs/stargate": "^0.32.3",
-    "@cosmjs/tendermint-rpc": "^0.32.3"
+    "@cosmjs/amino": "0.32.3",
+    "@cosmjs/proto-signing": "0.32.3",
+    "@cosmjs/stargate": "0.32.3",
+    "@cosmjs/tendermint-rpc": "^0.32.3",
+    "@cosmology/lcd": "^0.13.3"
   }
 }

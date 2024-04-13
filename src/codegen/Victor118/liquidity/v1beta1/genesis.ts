@@ -1,5 +1,6 @@
 import { Pool, PoolAmino, PoolSDKType, PoolMetadata, PoolMetadataAmino, PoolMetadataSDKType, PoolBatch, PoolBatchAmino, PoolBatchSDKType, DepositMsgState, DepositMsgStateAmino, DepositMsgStateSDKType, WithdrawMsgState, WithdrawMsgStateAmino, WithdrawMsgStateSDKType, SwapMsgState, SwapMsgStateAmino, SwapMsgStateSDKType, Params, ParamsAmino, ParamsSDKType } from "./liquidity";
 import { BinaryReader, BinaryWriter } from "../../../binary";
+import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * records the state of each pool after genesis export or import, used to check
  * variables
@@ -81,6 +82,15 @@ function createBasePoolRecord(): PoolRecord {
 }
 export const PoolRecord = {
   typeUrl: "/Victor118.liquidity.v1beta1.PoolRecord",
+  is(o: any): o is PoolRecord {
+    return o && (o.$typeUrl === PoolRecord.typeUrl || Pool.is(o.pool) && PoolMetadata.is(o.poolMetadata) && PoolBatch.is(o.poolBatch) && Array.isArray(o.depositMsgStates) && (!o.depositMsgStates.length || DepositMsgState.is(o.depositMsgStates[0])) && Array.isArray(o.withdrawMsgStates) && (!o.withdrawMsgStates.length || WithdrawMsgState.is(o.withdrawMsgStates[0])) && Array.isArray(o.swapMsgStates) && (!o.swapMsgStates.length || SwapMsgState.is(o.swapMsgStates[0])));
+  },
+  isSDK(o: any): o is PoolRecordSDKType {
+    return o && (o.$typeUrl === PoolRecord.typeUrl || Pool.isSDK(o.pool) && PoolMetadata.isSDK(o.pool_metadata) && PoolBatch.isSDK(o.pool_batch) && Array.isArray(o.deposit_msg_states) && (!o.deposit_msg_states.length || DepositMsgState.isSDK(o.deposit_msg_states[0])) && Array.isArray(o.withdraw_msg_states) && (!o.withdraw_msg_states.length || WithdrawMsgState.isSDK(o.withdraw_msg_states[0])) && Array.isArray(o.swap_msg_states) && (!o.swap_msg_states.length || SwapMsgState.isSDK(o.swap_msg_states[0])));
+  },
+  isAmino(o: any): o is PoolRecordAmino {
+    return o && (o.$typeUrl === PoolRecord.typeUrl || Pool.isAmino(o.pool) && PoolMetadata.isAmino(o.pool_metadata) && PoolBatch.isAmino(o.pool_batch) && Array.isArray(o.deposit_msg_states) && (!o.deposit_msg_states.length || DepositMsgState.isAmino(o.deposit_msg_states[0])) && Array.isArray(o.withdraw_msg_states) && (!o.withdraw_msg_states.length || WithdrawMsgState.isAmino(o.withdraw_msg_states[0])) && Array.isArray(o.swap_msg_states) && (!o.swap_msg_states.length || SwapMsgState.isAmino(o.swap_msg_states[0])));
+  },
   encode(message: PoolRecord, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.pool !== undefined) {
       Pool.encode(message.pool, writer.uint32(10).fork()).ldelim();
@@ -198,6 +208,7 @@ export const PoolRecord = {
     };
   }
 };
+GlobalDecoderRegistry.register(PoolRecord.typeUrl, PoolRecord);
 function createBaseGenesisState(): GenesisState {
   return {
     params: Params.fromPartial({}),
@@ -206,6 +217,15 @@ function createBaseGenesisState(): GenesisState {
 }
 export const GenesisState = {
   typeUrl: "/Victor118.liquidity.v1beta1.GenesisState",
+  is(o: any): o is GenesisState {
+    return o && (o.$typeUrl === GenesisState.typeUrl || Params.is(o.params) && Array.isArray(o.poolRecords) && (!o.poolRecords.length || PoolRecord.is(o.poolRecords[0])));
+  },
+  isSDK(o: any): o is GenesisStateSDKType {
+    return o && (o.$typeUrl === GenesisState.typeUrl || Params.isSDK(o.params) && Array.isArray(o.pool_records) && (!o.pool_records.length || PoolRecord.isSDK(o.pool_records[0])));
+  },
+  isAmino(o: any): o is GenesisStateAmino {
+    return o && (o.$typeUrl === GenesisState.typeUrl || Params.isAmino(o.params) && Array.isArray(o.pool_records) && (!o.pool_records.length || PoolRecord.isAmino(o.pool_records[0])));
+  },
   encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
@@ -275,3 +295,4 @@ export const GenesisState = {
     };
   }
 };
+GlobalDecoderRegistry.register(GenesisState.typeUrl, GenesisState);

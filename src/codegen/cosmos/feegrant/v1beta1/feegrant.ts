@@ -1,14 +1,16 @@
 import { Coin, CoinAmino, CoinSDKType } from "../../base/v1beta1/coin";
 import { Timestamp } from "../../../google/protobuf/timestamp";
 import { Duration, DurationAmino, DurationSDKType } from "../../../google/protobuf/duration";
-import { Any, AnyAmino, AnySDKType } from "../../../google/protobuf/any";
+import { Any, AnyProtoMsg, AnyAmino, AnySDKType } from "../../../google/protobuf/any";
 import { BinaryReader, BinaryWriter } from "../../../binary";
 import { toTimestamp, fromTimestamp } from "../../../helpers";
+import { GlobalDecoderRegistry } from "../../../registry";
 /**
  * BasicAllowance implements Allowance with a one-time grant of tokens
  * that optionally expires. The grantee can use up to SpendLimit to cover fees.
  */
 export interface BasicAllowance {
+  $typeUrl?: "/cosmos.feegrant.v1beta1.BasicAllowance";
   /**
    * spend_limit specifies the maximum amount of tokens that can be spent
    * by this allowance and will be updated as tokens are spent. If it is
@@ -45,6 +47,7 @@ export interface BasicAllowanceAminoMsg {
  * that optionally expires. The grantee can use up to SpendLimit to cover fees.
  */
 export interface BasicAllowanceSDKType {
+  $typeUrl?: "/cosmos.feegrant.v1beta1.BasicAllowance";
   spend_limit: CoinSDKType[];
   expiration?: Date;
 }
@@ -53,6 +56,7 @@ export interface BasicAllowanceSDKType {
  * as well as a limit per time period.
  */
 export interface PeriodicAllowance {
+  $typeUrl?: "/cosmos.feegrant.v1beta1.PeriodicAllowance";
   /** basic specifies a struct of `BasicAllowance` */
   basic: BasicAllowance;
   /**
@@ -113,6 +117,7 @@ export interface PeriodicAllowanceAminoMsg {
  * as well as a limit per time period.
  */
 export interface PeriodicAllowanceSDKType {
+  $typeUrl?: "/cosmos.feegrant.v1beta1.PeriodicAllowance";
   basic: BasicAllowanceSDKType;
   period: DurationSDKType;
   period_spend_limit: CoinSDKType[];
@@ -121,8 +126,9 @@ export interface PeriodicAllowanceSDKType {
 }
 /** AllowedMsgAllowance creates allowance only for specified message types. */
 export interface AllowedMsgAllowance {
+  $typeUrl?: "/cosmos.feegrant.v1beta1.AllowedMsgAllowance";
   /** allowance can be any of basic and periodic fee allowance. */
-  allowance?: Any;
+  allowance?: BasicAllowance | PeriodicAllowance | AllowedMsgAllowance | Any | undefined;
   /** allowed_messages are the messages for which the grantee has the access. */
   allowedMessages: string[];
 }
@@ -130,6 +136,9 @@ export interface AllowedMsgAllowanceProtoMsg {
   typeUrl: "/cosmos.feegrant.v1beta1.AllowedMsgAllowance";
   value: Uint8Array;
 }
+export type AllowedMsgAllowanceEncoded = Omit<AllowedMsgAllowance, "allowance"> & {
+  /** allowance can be any of basic and periodic fee allowance. */allowance?: BasicAllowanceProtoMsg | PeriodicAllowanceProtoMsg | AllowedMsgAllowanceProtoMsg | AnyProtoMsg | undefined;
+};
 /** AllowedMsgAllowance creates allowance only for specified message types. */
 export interface AllowedMsgAllowanceAmino {
   /** allowance can be any of basic and periodic fee allowance. */
@@ -143,7 +152,8 @@ export interface AllowedMsgAllowanceAminoMsg {
 }
 /** AllowedMsgAllowance creates allowance only for specified message types. */
 export interface AllowedMsgAllowanceSDKType {
-  allowance?: AnySDKType;
+  $typeUrl?: "/cosmos.feegrant.v1beta1.AllowedMsgAllowance";
+  allowance?: BasicAllowanceSDKType | PeriodicAllowanceSDKType | AllowedMsgAllowanceSDKType | AnySDKType | undefined;
   allowed_messages: string[];
 }
 /** Grant is stored in the KVStore to record a grant with full context */
@@ -153,12 +163,15 @@ export interface Grant {
   /** grantee is the address of the user being granted an allowance of another user's funds. */
   grantee: string;
   /** allowance can be any of basic, periodic, allowed fee allowance. */
-  allowance?: Any;
+  allowance?: BasicAllowance | PeriodicAllowance | AllowedMsgAllowance | Any | undefined;
 }
 export interface GrantProtoMsg {
   typeUrl: "/cosmos.feegrant.v1beta1.Grant";
   value: Uint8Array;
 }
+export type GrantEncoded = Omit<Grant, "allowance"> & {
+  /** allowance can be any of basic, periodic, allowed fee allowance. */allowance?: BasicAllowanceProtoMsg | PeriodicAllowanceProtoMsg | AllowedMsgAllowanceProtoMsg | AnyProtoMsg | undefined;
+};
 /** Grant is stored in the KVStore to record a grant with full context */
 export interface GrantAmino {
   /** granter is the address of the user granting an allowance of their funds. */
@@ -176,16 +189,27 @@ export interface GrantAminoMsg {
 export interface GrantSDKType {
   granter: string;
   grantee: string;
-  allowance?: AnySDKType;
+  allowance?: BasicAllowanceSDKType | PeriodicAllowanceSDKType | AllowedMsgAllowanceSDKType | AnySDKType | undefined;
 }
 function createBaseBasicAllowance(): BasicAllowance {
   return {
+    $typeUrl: "/cosmos.feegrant.v1beta1.BasicAllowance",
     spendLimit: [],
     expiration: undefined
   };
 }
 export const BasicAllowance = {
   typeUrl: "/cosmos.feegrant.v1beta1.BasicAllowance",
+  aminoType: "cosmos-sdk/BasicAllowance",
+  is(o: any): o is BasicAllowance {
+    return o && (o.$typeUrl === BasicAllowance.typeUrl || Array.isArray(o.spendLimit) && (!o.spendLimit.length || Coin.is(o.spendLimit[0])));
+  },
+  isSDK(o: any): o is BasicAllowanceSDKType {
+    return o && (o.$typeUrl === BasicAllowance.typeUrl || Array.isArray(o.spend_limit) && (!o.spend_limit.length || Coin.isSDK(o.spend_limit[0])));
+  },
+  isAmino(o: any): o is BasicAllowanceAmino {
+    return o && (o.$typeUrl === BasicAllowance.typeUrl || Array.isArray(o.spend_limit) && (!o.spend_limit.length || Coin.isAmino(o.spend_limit[0])));
+  },
   encode(message: BasicAllowance, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.spendLimit) {
       Coin.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -261,8 +285,11 @@ export const BasicAllowance = {
     };
   }
 };
+GlobalDecoderRegistry.register(BasicAllowance.typeUrl, BasicAllowance);
+GlobalDecoderRegistry.registerAminoProtoMapping(BasicAllowance.aminoType, BasicAllowance.typeUrl);
 function createBasePeriodicAllowance(): PeriodicAllowance {
   return {
+    $typeUrl: "/cosmos.feegrant.v1beta1.PeriodicAllowance",
     basic: BasicAllowance.fromPartial({}),
     period: Duration.fromPartial({}),
     periodSpendLimit: [],
@@ -272,6 +299,16 @@ function createBasePeriodicAllowance(): PeriodicAllowance {
 }
 export const PeriodicAllowance = {
   typeUrl: "/cosmos.feegrant.v1beta1.PeriodicAllowance",
+  aminoType: "cosmos-sdk/PeriodicAllowance",
+  is(o: any): o is PeriodicAllowance {
+    return o && (o.$typeUrl === PeriodicAllowance.typeUrl || BasicAllowance.is(o.basic) && Duration.is(o.period) && Array.isArray(o.periodSpendLimit) && (!o.periodSpendLimit.length || Coin.is(o.periodSpendLimit[0])) && Array.isArray(o.periodCanSpend) && (!o.periodCanSpend.length || Coin.is(o.periodCanSpend[0])) && Timestamp.is(o.periodReset));
+  },
+  isSDK(o: any): o is PeriodicAllowanceSDKType {
+    return o && (o.$typeUrl === PeriodicAllowance.typeUrl || BasicAllowance.isSDK(o.basic) && Duration.isSDK(o.period) && Array.isArray(o.period_spend_limit) && (!o.period_spend_limit.length || Coin.isSDK(o.period_spend_limit[0])) && Array.isArray(o.period_can_spend) && (!o.period_can_spend.length || Coin.isSDK(o.period_can_spend[0])) && Timestamp.isSDK(o.period_reset));
+  },
+  isAmino(o: any): o is PeriodicAllowanceAmino {
+    return o && (o.$typeUrl === PeriodicAllowance.typeUrl || BasicAllowance.isAmino(o.basic) && Duration.isAmino(o.period) && Array.isArray(o.period_spend_limit) && (!o.period_spend_limit.length || Coin.isAmino(o.period_spend_limit[0])) && Array.isArray(o.period_can_spend) && (!o.period_can_spend.length || Coin.isAmino(o.period_can_spend[0])) && Timestamp.isAmino(o.period_reset));
+  },
   encode(message: PeriodicAllowance, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.basic !== undefined) {
       BasicAllowance.encode(message.basic, writer.uint32(10).fork()).ldelim();
@@ -382,17 +419,30 @@ export const PeriodicAllowance = {
     };
   }
 };
+GlobalDecoderRegistry.register(PeriodicAllowance.typeUrl, PeriodicAllowance);
+GlobalDecoderRegistry.registerAminoProtoMapping(PeriodicAllowance.aminoType, PeriodicAllowance.typeUrl);
 function createBaseAllowedMsgAllowance(): AllowedMsgAllowance {
   return {
+    $typeUrl: "/cosmos.feegrant.v1beta1.AllowedMsgAllowance",
     allowance: undefined,
     allowedMessages: []
   };
 }
 export const AllowedMsgAllowance = {
   typeUrl: "/cosmos.feegrant.v1beta1.AllowedMsgAllowance",
+  aminoType: "cosmos-sdk/AllowedMsgAllowance",
+  is(o: any): o is AllowedMsgAllowance {
+    return o && (o.$typeUrl === AllowedMsgAllowance.typeUrl || Array.isArray(o.allowedMessages) && (!o.allowedMessages.length || typeof o.allowedMessages[0] === "string"));
+  },
+  isSDK(o: any): o is AllowedMsgAllowanceSDKType {
+    return o && (o.$typeUrl === AllowedMsgAllowance.typeUrl || Array.isArray(o.allowed_messages) && (!o.allowed_messages.length || typeof o.allowed_messages[0] === "string"));
+  },
+  isAmino(o: any): o is AllowedMsgAllowanceAmino {
+    return o && (o.$typeUrl === AllowedMsgAllowance.typeUrl || Array.isArray(o.allowed_messages) && (!o.allowed_messages.length || typeof o.allowed_messages[0] === "string"));
+  },
   encode(message: AllowedMsgAllowance, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.allowance !== undefined) {
-      Any.encode(message.allowance, writer.uint32(10).fork()).ldelim();
+      Any.encode(GlobalDecoderRegistry.wrapAny(message.allowance), writer.uint32(10).fork()).ldelim();
     }
     for (const v of message.allowedMessages) {
       writer.uint32(18).string(v!);
@@ -407,7 +457,7 @@ export const AllowedMsgAllowance = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.allowance = Any.decode(reader, reader.uint32());
+          message.allowance = GlobalDecoderRegistry.unwrapAny(reader);
           break;
         case 2:
           message.allowedMessages.push(reader.string());
@@ -421,21 +471,21 @@ export const AllowedMsgAllowance = {
   },
   fromPartial(object: Partial<AllowedMsgAllowance>): AllowedMsgAllowance {
     const message = createBaseAllowedMsgAllowance();
-    message.allowance = object.allowance !== undefined && object.allowance !== null ? Any.fromPartial(object.allowance) : undefined;
+    message.allowance = object.allowance !== undefined && object.allowance !== null ? GlobalDecoderRegistry.fromPartial(object.allowance) : undefined;
     message.allowedMessages = object.allowedMessages?.map(e => e) || [];
     return message;
   },
   fromAmino(object: AllowedMsgAllowanceAmino): AllowedMsgAllowance {
     const message = createBaseAllowedMsgAllowance();
     if (object.allowance !== undefined && object.allowance !== null) {
-      message.allowance = Any.fromAmino(object.allowance);
+      message.allowance = GlobalDecoderRegistry.fromAminoMsg(object.allowance);
     }
     message.allowedMessages = object.allowed_messages?.map(e => e) || [];
     return message;
   },
   toAmino(message: AllowedMsgAllowance): AllowedMsgAllowanceAmino {
     const obj: any = {};
-    obj.allowance = message.allowance ? Any.toAmino(message.allowance) : undefined;
+    obj.allowance = message.allowance ? GlobalDecoderRegistry.toAminoMsg(message.allowance) : undefined;
     if (message.allowedMessages) {
       obj.allowed_messages = message.allowedMessages.map(e => e);
     } else {
@@ -465,6 +515,8 @@ export const AllowedMsgAllowance = {
     };
   }
 };
+GlobalDecoderRegistry.register(AllowedMsgAllowance.typeUrl, AllowedMsgAllowance);
+GlobalDecoderRegistry.registerAminoProtoMapping(AllowedMsgAllowance.aminoType, AllowedMsgAllowance.typeUrl);
 function createBaseGrant(): Grant {
   return {
     granter: "",
@@ -474,6 +526,16 @@ function createBaseGrant(): Grant {
 }
 export const Grant = {
   typeUrl: "/cosmos.feegrant.v1beta1.Grant",
+  aminoType: "cosmos-sdk/Grant",
+  is(o: any): o is Grant {
+    return o && (o.$typeUrl === Grant.typeUrl || typeof o.granter === "string" && typeof o.grantee === "string");
+  },
+  isSDK(o: any): o is GrantSDKType {
+    return o && (o.$typeUrl === Grant.typeUrl || typeof o.granter === "string" && typeof o.grantee === "string");
+  },
+  isAmino(o: any): o is GrantAmino {
+    return o && (o.$typeUrl === Grant.typeUrl || typeof o.granter === "string" && typeof o.grantee === "string");
+  },
   encode(message: Grant, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.granter !== "") {
       writer.uint32(10).string(message.granter);
@@ -482,7 +544,7 @@ export const Grant = {
       writer.uint32(18).string(message.grantee);
     }
     if (message.allowance !== undefined) {
-      Any.encode(message.allowance, writer.uint32(26).fork()).ldelim();
+      Any.encode(GlobalDecoderRegistry.wrapAny(message.allowance), writer.uint32(26).fork()).ldelim();
     }
     return writer;
   },
@@ -500,7 +562,7 @@ export const Grant = {
           message.grantee = reader.string();
           break;
         case 3:
-          message.allowance = Any.decode(reader, reader.uint32());
+          message.allowance = GlobalDecoderRegistry.unwrapAny(reader);
           break;
         default:
           reader.skipType(tag & 7);
@@ -513,7 +575,7 @@ export const Grant = {
     const message = createBaseGrant();
     message.granter = object.granter ?? "";
     message.grantee = object.grantee ?? "";
-    message.allowance = object.allowance !== undefined && object.allowance !== null ? Any.fromPartial(object.allowance) : undefined;
+    message.allowance = object.allowance !== undefined && object.allowance !== null ? GlobalDecoderRegistry.fromPartial(object.allowance) : undefined;
     return message;
   },
   fromAmino(object: GrantAmino): Grant {
@@ -525,7 +587,7 @@ export const Grant = {
       message.grantee = object.grantee;
     }
     if (object.allowance !== undefined && object.allowance !== null) {
-      message.allowance = Any.fromAmino(object.allowance);
+      message.allowance = GlobalDecoderRegistry.fromAminoMsg(object.allowance);
     }
     return message;
   },
@@ -533,7 +595,7 @@ export const Grant = {
     const obj: any = {};
     obj.granter = message.granter === "" ? undefined : message.granter;
     obj.grantee = message.grantee === "" ? undefined : message.grantee;
-    obj.allowance = message.allowance ? Any.toAmino(message.allowance) : undefined;
+    obj.allowance = message.allowance ? GlobalDecoderRegistry.toAminoMsg(message.allowance) : undefined;
     return obj;
   },
   fromAminoMsg(object: GrantAminoMsg): Grant {
@@ -558,3 +620,5 @@ export const Grant = {
     };
   }
 };
+GlobalDecoderRegistry.register(Grant.typeUrl, Grant);
+GlobalDecoderRegistry.registerAminoProtoMapping(Grant.aminoType, Grant.typeUrl);
