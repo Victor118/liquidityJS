@@ -91,6 +91,7 @@ telescope({
       enabled: true
     },
     rpcClients: {
+      type: 'tendermint',
       enabled: true,
       camelCase: true
     }
