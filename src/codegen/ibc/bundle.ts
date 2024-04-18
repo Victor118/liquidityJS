@@ -20,29 +20,29 @@ import * as _96 from "./lightclients/localhost/v1/localhost";
 import * as _97 from "./lightclients/solomachine/v1/solomachine";
 import * as _98 from "./lightclients/solomachine/v2/solomachine";
 import * as _99 from "./lightclients/tendermint/v1/tendermint";
-import * as _176 from "./applications/transfer/v1/tx.amino";
-import * as _177 from "./core/channel/v1/tx.amino";
-import * as _178 from "./core/client/v1/tx.amino";
-import * as _179 from "./core/connection/v1/tx.amino";
-import * as _180 from "./applications/transfer/v1/tx.registry";
-import * as _181 from "./core/channel/v1/tx.registry";
-import * as _182 from "./core/client/v1/tx.registry";
-import * as _183 from "./core/connection/v1/tx.registry";
-import * as _184 from "./applications/transfer/v1/query.lcd";
-import * as _185 from "./core/channel/v1/query.lcd";
-import * as _186 from "./core/client/v1/query.lcd";
-import * as _187 from "./core/connection/v1/query.lcd";
-import * as _188 from "./applications/transfer/v1/query.rpc.Query";
-import * as _189 from "./core/channel/v1/query.rpc.Query";
-import * as _190 from "./core/client/v1/query.rpc.Query";
-import * as _191 from "./core/connection/v1/query.rpc.Query";
-import * as _192 from "./applications/transfer/v1/tx.rpc.msg";
-import * as _193 from "./core/channel/v1/tx.rpc.msg";
-import * as _194 from "./core/client/v1/tx.rpc.msg";
-import * as _195 from "./core/connection/v1/tx.rpc.msg";
-import * as _207 from "./lcd";
-import * as _208 from "./rpc.query";
-import * as _209 from "./rpc.tx";
+import * as _180 from "./applications/transfer/v1/tx.amino";
+import * as _181 from "./core/channel/v1/tx.amino";
+import * as _182 from "./core/client/v1/tx.amino";
+import * as _183 from "./core/connection/v1/tx.amino";
+import * as _184 from "./applications/transfer/v1/tx.registry";
+import * as _185 from "./core/channel/v1/tx.registry";
+import * as _186 from "./core/client/v1/tx.registry";
+import * as _187 from "./core/connection/v1/tx.registry";
+import * as _188 from "./applications/transfer/v1/query.lcd";
+import * as _189 from "./core/channel/v1/query.lcd";
+import * as _190 from "./core/client/v1/query.lcd";
+import * as _191 from "./core/connection/v1/query.lcd";
+import * as _192 from "./applications/transfer/v1/query.rpc.Query";
+import * as _193 from "./core/channel/v1/query.rpc.Query";
+import * as _194 from "./core/client/v1/query.rpc.Query";
+import * as _195 from "./core/connection/v1/query.rpc.Query";
+import * as _196 from "./applications/transfer/v1/tx.rpc.msg";
+import * as _197 from "./core/channel/v1/tx.rpc.msg";
+import * as _198 from "./core/client/v1/tx.rpc.msg";
+import * as _199 from "./core/connection/v1/tx.rpc.msg";
+import * as _216 from "./lcd";
+import * as _217 from "./rpc.query";
+import * as _218 from "./rpc.tx";
 export namespace ibc {
   export namespace applications {
     export namespace transfer {
@@ -51,11 +51,11 @@ export namespace ibc {
         ..._79,
         ..._80,
         ..._81,
-        ..._176,
         ..._180,
         ..._184,
         ..._188,
-        ..._192
+        ..._192,
+        ..._196
       };
       export const v2 = {
         ..._82
@@ -69,11 +69,11 @@ export namespace ibc {
         ..._84,
         ..._85,
         ..._86,
-        ..._177,
         ..._181,
         ..._185,
         ..._189,
-        ..._193
+        ..._193,
+        ..._197
       };
     }
     export namespace client {
@@ -82,11 +82,11 @@ export namespace ibc {
         ..._88,
         ..._89,
         ..._90,
-        ..._178,
         ..._182,
         ..._186,
         ..._190,
-        ..._194
+        ..._194,
+        ..._198
       };
     }
     export namespace commitment {
@@ -100,11 +100,11 @@ export namespace ibc {
         ..._93,
         ..._94,
         ..._95,
-        ..._179,
         ..._183,
         ..._187,
         ..._191,
-        ..._195
+        ..._195,
+        ..._199
       };
     }
   }
@@ -129,8 +129,8 @@ export namespace ibc {
     }
   }
   export const ClientFactory = {
-    ..._207,
-    ..._208,
-    ..._209
+    ..._216,
+    ..._217,
+    ..._218
   };
 }

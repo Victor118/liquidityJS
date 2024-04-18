@@ -16,6 +16,7 @@ export * from "./google/bundle";
 export * from "./ibc/bundle";
 export * from "./ibc/client";
 export * from "./tendermint/bundle";
+export * from "./tendermint/client";
 export * from "./Victor118/bundle";
 export * from "./Victor118/client";
 export * from "./varint";
